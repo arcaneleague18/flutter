@@ -1,0 +1,28 @@
+import "package:flutter/material.dart";
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: BreakPointUI()
+    );
+  }
+}
+
+class BreakPointUI extends StatelessWidget {
+  Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    Widget content;
+    if(width < 600) {
+      content = Text("Mobile view");
+    } else{
+      content = Text("Desktop view");
+    }
+    return Scaffold(
+      body: content,
+    );
+  }
+}

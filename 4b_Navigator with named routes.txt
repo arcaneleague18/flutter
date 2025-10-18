@@ -1,0 +1,34 @@
+import "package:flutter/material.dart";
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      initialRoute: '/',
+
+      routes: {
+        '/': (context) => HomeScreen(),
+        '/second': (context) => SecondScreen()
+
+      },
+    );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Text("Home Screen")
+    );
+  }
+}
+class SecondScreen extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Text("second Screen")
+    );
+  }
+}

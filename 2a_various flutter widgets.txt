@@ -1,0 +1,25 @@
+import "package:flutter/material.dart";
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: Container (
+          child: Column(
+            children: [
+              const Text("Hello world"),
+              Image.network("https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQzyj1cScfI4rOvISJ3pJLTObOU20kAFtW8Ufi8NOBOcXbveYNLu1e1ZFu2ylkpz5R40Q6j581D0uyEJNCrvXfRAC0ps3PEM0ppB0TU8nXy"),
+            ]
+          )
+        )
+      )
+    );
+  }
+}
