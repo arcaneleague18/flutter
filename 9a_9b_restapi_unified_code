@@ -1,0 +1,34 @@
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+void main() => runApp(MaterialApp(home: HomePage()));
+
+class HomePage extends StatelessWidget {
+  Future<List<String>> fetchTitles() async {
+    final res = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
+    final data = jsonDecode(res.body);
+    return List<String>.from(data.map((item) => item['title']));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Posts')),
+      body: FutureBuilder<List<String>>(
+        future: fetchTitles(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState != ConnectionState.done)
+            return Center(child: CircularProgressIndicator());
+          if (snapshot.hasError)
+            return Center(child: Text('Error: ${snapshot.error}'));
+          final titles = snapshot.data!;
+          return ListView.builder(
+            itemCount: titles.length,
+            itemBuilder: (_, i) => ListTile(title: Text(titles[i])),
+          );
+        },
+      ),
+    );
+  }
+}
