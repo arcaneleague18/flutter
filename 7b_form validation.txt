@@ -1,0 +1,61 @@
+import "package:flutter/material.dart";
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: FormApp()
+   );
+  }
+}
+
+class FormApp extends StatefulWidget {
+  _FormState createState() => _FormState(); 
+}
+
+class _FormState extends State<FormApp> {
+    final _formkey = GlobalKey<FormState>();
+    final nameController = TextEditingController();
+    final emailCOntroller = TextEditingController();
+
+    Widget build(BuildContext context) {
+      return Scaffold(
+        body: Form(
+          key: _formkey,
+          child: Column(
+            children: [
+              Text("Name"),
+              TextFormField(controller: nameController, decoration: InputDecoration(labelText: "Name"), 
+              validator: (value) {
+                if(value == null || value.isEmpty) {
+                  return "Name cannot be empty";
+                }
+                return null;
+              }
+              ),
+              Text("Email"),
+              TextFormField(controller: emailCOntroller, decoration: InputDecoration(labelText: "email"),
+                validator: (value) {
+                  if(value == null || value.isEmpty) {
+                    return "Email cannot be empty";
+                  }
+                  return null;
+                },
+              ),
+              ElevatedButton(onPressed: 
+              () {
+                if(_formkey.currentState!.validate()) {
+                  print('Name: $nameController.text');
+                  print('Email: $emailCOntroller.text');
+                }
+              }
+              , child: Text("Submit"))
+            ],
+          )
+        )
+      );
+    }
+}
