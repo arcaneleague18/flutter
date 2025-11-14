@@ -1,67 +1,30 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(MaterialApp(home: B()));
 
-class MyApp extends StatelessWidget {
+class B extends StatefulWidget {
   @override
-  Widget build(BuildContext context) => MaterialApp(home: FadeSlideDemo());
+  State<B> createState() => _BState();
 }
 
-class FadeSlideDemo extends StatefulWidget {
-  @override
-  _FadeSlideDemoState createState() => _FadeSlideDemoState();
-}
+class _BState extends State<B> with SingleTickerProviderStateMixin {
+  late final AnimationController c =
+      AnimationController(vsync: this, duration: Duration(seconds: 1))
+        ..repeat(reverse: true);
 
-class _FadeSlideDemoState extends State<FadeSlideDemo> with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _fadeAnimation;
-  late Animation<Offset> _slideAnimation;
+  late final fade = Tween(begin: 0.0, end: 1.0).animate(c);
+  late final slide = Tween(begin: Offset(0, 1), end: Offset.zero).animate(c);
 
   @override
-  void initState() {
-    super.initState();
-
-    _controller = AnimationController(
-      duration: Duration(milliseconds: 600),
-      vsync: this,
-    );
-
-    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(_controller);
-    _slideAnimation = Tween<Offset>(
-      begin: Offset(0, 0.3),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
-  }
-
-  @override
-  void dispose() => _controller.dispose();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: FadeTransition(
-          opacity: _fadeAnimation,
-          child: SlideTransition(
-            position: _slideAnimation,
-            child: Container(
-              padding: EdgeInsets.all(20),
-              color: Colors.blue,
-              child: Text(
-                'Animated Box',
-                style: TextStyle(color: Colors.white, fontSize: 24),
-              ),
+  Widget build(context) => Scaffold(
+        body: Center(
+          child: FadeTransition(
+            opacity: fade,
+            child: SlideTransition(
+              position: slide,
+              child: Container(width: 100, height: 100, color: Colors.red),
             ),
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _controller.status == AnimationStatus.completed
-              ? _controller.reverse()
-              : _controller.forward();
-        },
-      ),
-    );
-  }
+      );
 }
