@@ -7,31 +7,17 @@ void main() {
 class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomeScreen()
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: CustomButton(
-          text: "click me!",
-          onPressed: () {
-            print("Button pressed");
-          }
-        )
+      home: Scaffold(
+        body: CustomText()
       )
     );
   }
 }
 
-class CustomButton extends StatelessWidget {
-  final String text;
-  final VoidCallback onPressed;
-  const CustomButton({required this.text, required this.onPressed});
+class CustomText extends StatelessWidget {
   Widget build(BuildContext context) {
-    return ElevatedButton(onPressed: onPressed, child: Text(text));
+    return Scaffold(
+      body: Text("Those who sweat in training, bleed less in war")
+    );
   }
 }
