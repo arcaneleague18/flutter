@@ -48,8 +48,8 @@ class _FormState extends State<FormApp> {
               ElevatedButton(onPressed: 
               () {
                 if(_formkey.currentState!.validate()) {
-                  print('Name: $nameController.text');
-                  print('Email: $emailCOntroller.text');
+                  print('Name: ${nameController.text}');
+                  print('Email: ${emailCOntroller.text}');
                 }
               }
               , child: Text("Submit"))
